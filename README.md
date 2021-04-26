@@ -2,6 +2,7 @@
 Git autocommit &amp; autosync script
 
 This is the start of a bigger project. For now this only support git-autocommit and autosync (across two directories only for now).
+
 TODO:
 
 - Support for more features
