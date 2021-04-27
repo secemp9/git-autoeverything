@@ -5,6 +5,9 @@ This is the start of a bigger project. For now this only support autocommit and 
 
 # Usage
 
+
+Don't forget to `chmod +x` it first.
+
 ```bash
 ./git-auto.sh "/first/path /second/path"
 ```
