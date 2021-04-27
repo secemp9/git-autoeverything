@@ -57,6 +57,7 @@ Hard to say. The way the "autosync" work isn't the way it probably sounds like. 
 - Add watchman and inotify wait as alternative (given this only use git for now, which is good enough for small project)
 - More protocols support beside local repos (ssh, etc)
 - Add more comments
+- Fix GETOPT so it actually work regardless of position of the arguments...(or find a better alternative)
 - ???
 
 Credit: https://github.com/ralfholly/git-autocommit
