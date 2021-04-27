@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
+#Copyright 2015 by Ralf Holly.
+#Copyright 2021 by Nordine Lotfi.
+#Licensed under the terms of the MIT License, see LICENSE file.
 
 gac() {
-GIT_AUTOCOMMIT_VERSION="1.3"
-GIT_AUTOCOMMIT_MESSAGE="<git-autocommit>"
-GIT_AUTOCOMMIT_SECONDS=1
-GIT_AUTOCOMMIT_VERBOSE=0
-GIT_AUTOCOMMIT_QUIET=0
+GIT_AUTOEVERYTHING_VERSION="1.3"
+GIT_AUTOEVERYTHING_MESSAGE="<git-autocommit>"
+GIT_AUTOEVERYTHING_SECONDS=1
+GIT_AUTOEVERYTHING_VERBOSE=0
+GIT_AUTOEVERYTHING_QUIET=0
 
 git_autocommit_commit_count=0
 
@@ -27,7 +30,7 @@ function print_autocommit_stats
 
 function verbose_log
 {
-    if [ "$GIT_AUTOCOMMIT_VERBOSE" -ne 0 ] && [ "$GIT_AUTOCOMMIT_QUIET" -eq 0 ]; then
+    if [ "$GIT_AUTOEVERYTHING_VERBOSE" -ne 0 ] && [ "$GIT_AUTOEVERYTHING_QUIET" -eq 0 ]; then
         echo ""
         echo "$1"
     fi
@@ -152,13 +155,13 @@ done
 function show_help
 {
 cat <<EOM
-git-autocommit -- Periodically commits uncommitted changes.
-Version $GIT_AUTOCOMMIT_VERSION, Copyright 2015 by Ralf Holly.
+git-autoeverything -- Periodically commits and sync uncommitted changes across directories, and more.
+Version $GIT_AUTOEVERYTHING_VERSION, Copyright 2015 by Ralf Holly, Copyright 2021 by Nordine Lotfi.
 Licensed under the terms of the MIT License, see LICENSE file.
 
 Options:
     -h          Show help.
-    -s          Soft reset to parent commit of an auto-commit sequence.
+    -s          Sync commits/contents between two directories.
                 (useful for squashing autocommits into a meaningful topic commit.)
     -i <secs>   Set check-for-modifications interval to <secs> seconds.
     -q          Quiet (no output).
@@ -177,17 +180,17 @@ while getopts ":hVqis:" opt; do
             two_be_or_not "$OPTARG"
             ;;
         V)
-            GIT_AUTOCOMMIT_VERBOSE=1
+            GIT_AUTOEVERYTHING_VERBOSE=1
             ;;
         i)
-            GIT_AUTOCOMMIT_SECONDS="$OPTARG"
-            if [ -z "$GIT_AUTOCOMMIT_SECONDS" ] || [ "$GIT_AUTOCOMMIT_SECONDS" -le "0" ]; then
+            GIT_AUTOEVERYTHING_SECONDS="$OPTARG"
+            if [ -z "$GIT_AUTOEVERYTHING_SECONDS" ] || [ "$GIT_AUTOEVERYTHING_SECONDS" -le "0" ]; then
                 fatal "Please provide a positive poll interval"
             fi
-            verbose_log "Setting poll interval to $GIT_AUTOCOMMIT_SECONDS seconds"
+            verbose_log "Setting poll interval to $GIT_AUTOEVERYTHING_SECONDS seconds"
             ;;
         q)
-            GIT_AUTOCOMMIT_QUIET=1
+            GIT_AUTOEVERYTHING_QUIET=1
             ;;
         :)
             fatal "Option -$OPTARG requires an argument"
@@ -203,7 +206,7 @@ for i in "${arr[@]}"
 do
    cd "$i" #or do whatever with individual element of the array
    autocommit && sync || true
-   sleep "$GIT_AUTOCOMMIT_SECONDS"
+   sleep "$GIT_AUTOEVERYTHING_SECONDS"
 done
 }
 
